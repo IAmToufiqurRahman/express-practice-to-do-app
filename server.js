@@ -14,7 +14,7 @@ const connectionString = 'mongodb+srv://todoapp:aws1jio00321&@cluster0.rbtac.mon
 mongodb.connect(connectionString, { useNewUrlParser: true }, (err, client) => {
   // this function will be called by the connect method after it had a chance to open a connection
   db = client.db() // client has the info of the mongodb environment
-  app.listen(8080)
+  app.listen(process.env.PORT || 8080)
 })
 
 app.use(express.json())

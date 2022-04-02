@@ -1,6 +1,5 @@
 const express = require('express')
 const mongodb = require('mongodb')
-const path = require('path')
 const sanitizeHtml = require('sanitize-html')
 
 const app = express()
@@ -17,6 +16,7 @@ mongodb.connect(connectionString, { useNewUrlParser: true }, (err, client) => {
   app.listen(process.env.PORT || 8080)
 })
 
+// express.json() allows to accept asynchronous request
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -38,8 +38,8 @@ app.get('/', function (req, res) {
   db.collection('items')
     .find()
     .toArray((err, items) => {
-      res.send(`<!DOCTYPE html>
-
+      res.send(
+        `<!DOCTYPE html>
       <html>
       <head>
         <meta charset="UTF-8">
@@ -76,7 +76,8 @@ app.get('/', function (req, res) {
         <script src='/browser.js'> </script>
 
       </body>
-      </html>`)
+      </html>`
+      )
     })
   // res.sendFile(path.join(__dirname, '/index.html'))
 })
